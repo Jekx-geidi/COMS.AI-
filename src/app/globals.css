@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens — Core Docs/UIS.md #52. COMS.AI ships Dark Command Mode as its
+   single primary product identity (UIS.md #5), not an adaptive light/dark app. */
+:root {
+  --bg-0: #030a17;
+  --bg-1: #071a3d;
+  --bg-2: #0d2553;
+
+  --brand-blue: #163b8c;
+  --brand-cyan: #19b8e8;
+  --brand-cyan-light: #6de4ff;
+
+  --text-primary: #f7fbff;
+  --text-secondary: #91a2bb;
+
+  --status-critical: #e53935;
+  --status-scheduled: #ffb020;
+  --status-monitor: #ffd95a;
+  --status-restoring: #39d9d0;
+  --status-stable: #2dd881;
+  --status-community: #9b72ff;
+  --status-unknown: #7c8ba1;
+
+  --border-subtle: rgba(109, 228, 255, 0.18);
+  --border-strong: rgba(109, 228, 255, 0.34);
+  --surface-glass: rgba(7, 26, 61, 0.78);
+
+  /* Text drawn on top of a bright accent fill (brand-cyan/status-community
+     buttons). Accent fills stay bright in both themes, so this stays fixed
+     instead of following --bg-0, which flips from near-black to near-white
+     in light mode. */
+  --on-accent: #030a17;
+
+  --font-display: var(--font-doppio), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-doppio), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  color-scheme: dark;
+}
+
+/* Light theme — opt-in via the theme toggle (persisted to localStorage as
+   data-theme on <html>). COMS.AI still defaults to Dark Command Mode; this
+   is an accessibility/preference override, not a second product identity. */
+:root[data-theme="light"] {
+  --bg-0: #f4f7fc;
+  --bg-1: #ffffff;
+  --bg-2: #eaf1fb;
+
+  --brand-blue: #163b8c;
+  --brand-cyan: #0e86b8;
+  --brand-cyan-light: #0f7fae;
+
+  --text-primary: #0b1626;
+  --text-secondary: #4a5a72;
+
+  --status-critical: #d1332e;
+  --status-scheduled: #b9790a;
+  --status-monitor: #a98a00;
+  --status-restoring: #12a89f;
+  --status-stable: #189a56;
+  --status-community: #6b46c9;
+  --status-unknown: #5b6b81;
+
+  --border-subtle: rgba(22, 59, 140, 0.14);
+  --border-strong: rgba(22, 59, 140, 0.28);
+  --surface-glass: rgba(255, 255, 255, 0.78);
+
+  color-scheme: light;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--bg-0);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 76% -10%, rgba(25, 184, 232, 0.13), transparent 30rem),
+    radial-gradient(circle at 10% 70%, rgba(22, 59, 140, 0.1), transparent 26rem);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(109, 228, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(109, 228, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+/* Logo theme swap — see components/layout/logo.tsx. */
+.coms-logo-light {
+  display: none;
+}
+
+:root[data-theme="light"] .coms-logo-dark {
+  display: none;
+}
+
+:root[data-theme="light"] .coms-logo-light {
+  display: unset;
+}
+
+::selection {
+  background: rgba(25, 184, 232, 0.3);
+  color: var(--text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-cyan-light);
+  outline-offset: 3px;
+}
+
+* {
+  scrollbar-color: var(--brand-blue) var(--bg-0);
+}
+
+@media (max-width: 767px) {
+  body::before {
+    background-size: 32px 32px;
+    opacity: 0.7;
+  }
+}
+
+/* Leaflet dark-theme overrides — the library ships light-mode chrome by
+   default (grey container, white popups/controls), which clashes with Dark
+   Command Mode. CARTO Dark Matter provides the raster basemap underneath. */
+.leaflet-container {
+  background: var(--bg-0) !important;
+  font-family: var(--font-body);
+}
+
+/* Leaflet gives clicked markers/shapes a tabindex for keyboard a11y, which
+   makes the browser draw its native focus-rectangle on click — reads as a
+   stray white box on the dark basemap. Suppress just that visual; keyboard
+   focus still works, it's just not drawn as a box. */
+.leaflet-interactive:focus,
+.leaflet-marker-icon:focus {
+  outline: none;
+}
+
+.leaflet-control-zoom a {
+  background: var(--bg-1) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--bg-2) !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--bg-1);
+  color: var(--text-primary);
+}
+
+.leaflet-tooltip {
+  background: var(--bg-2);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: none;
+}
+
+.leaflet-tooltip-top:before {
+  border-top-color: var(--bg-2);
+}
+
+.leaflet-popup-content a {
+  color: var(--brand-cyan);
+}
+
+.leaflet-popup-close-button {
+  color: var(--text-secondary) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(3, 10, 23, 0.75) !important;
+  color: var(--text-secondary) !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--brand-cyan);
+}
+
+/* Barangay/place name labels (outage-map.tsx) — plain text, no pin/box, a
+   dark halo instead of a background so it reads against the navy fill. */
+.coms-place-label {
+  pointer-events: none;
+}
+
+.coms-place-label span {
+  position: absolute;
+  left: 6px;
+  top: -6px;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--text-primary);
+  text-shadow:
+    0 0 3px var(--bg-0),
+    0 0 3px var(--bg-0),
+    0 0 4px var(--bg-0);
+}
+
+/* Leaflet event markers are HTML/CSS elements, not SVG assets. */
+.coms-map-event-marker {
+  background: transparent;
+  border: 0;
+}
+
+.coms-map-event-marker span {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--text-primary);
+  border-radius: 999px;
+  background: var(--marker-color);
+  box-shadow: 0 0 0 2px rgba(3, 10, 23, 0.78), 0 0 16px color-mix(in srgb, var(--marker-color) 64%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
