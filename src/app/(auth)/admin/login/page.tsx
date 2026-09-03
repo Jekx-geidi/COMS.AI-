@@ -55,10 +55,10 @@ function AdminLoginForm() {
   return (
     <main className="relative flex min-h-screen items-center justify-center px-4 py-10">
       <ThemeToggle className="absolute right-4 top-4" />
-      <section className="w-full max-w-md overflow-hidden rounded-panel border border-border-strong bg-bg-1 shadow-[0_24px_80px_rgba(0,0,0,0.38)]">
-        <div className="border-b border-border-subtle bg-gradient-to-r from-brand-blue/45 to-bg-1 px-6 py-6">
+      <section className="w-full max-w-md overflow-hidden rounded-panel bg-bg-1/95 shadow-[0_24px_80px_rgba(0,0,0,0.38)]">
+        <div className="bg-bg-2/35 px-6 py-6">
           <Logo className="h-7 w-auto" />
-          <span className="mt-5 inline-flex h-10 w-10 items-center justify-center rounded-control border border-brand-cyan/30 bg-brand-cyan/10 text-brand-cyan">
+          <span className="mt-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-cyan/10 text-brand-cyan">
             <LockKeyhole className="h-5 w-5" aria-hidden="true" />
           </span>
           <p className="mt-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-cyan">
@@ -79,7 +79,7 @@ function AdminLoginForm() {
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="mt-2 min-h-11 w-full rounded-control border border-border-subtle bg-bg-0 px-3 text-text-primary outline-none transition-colors placeholder:text-text-secondary focus:border-brand-cyan"
+              className="mt-2 min-h-11 w-full rounded-control bg-bg-0 px-3 text-text-primary outline-none transition-colors placeholder:text-text-secondary focus:ring-2 focus:ring-brand-cyan/45"
               placeholder="name@organization.com"
             />
           </label>
@@ -91,12 +91,12 @@ function AdminLoginForm() {
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="mt-2 min-h-11 w-full rounded-control border border-border-subtle bg-bg-0 px-3 text-text-primary outline-none transition-colors focus:border-brand-cyan"
+              className="mt-2 min-h-11 w-full rounded-control bg-bg-0 px-3 text-text-primary outline-none transition-colors focus:ring-2 focus:ring-brand-cyan/45"
             />
           </label>
 
           {error && (
-            <p role="alert" className="rounded-control border border-status-critical/40 bg-status-critical/10 px-3 py-2 text-sm text-status-critical">
+            <p role="alert" className="rounded-control bg-status-critical/10 px-3 py-2 text-sm text-status-critical">
               {error}
             </p>
           )}

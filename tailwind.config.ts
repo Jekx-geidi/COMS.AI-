@@ -33,6 +33,7 @@ const config: Config = {
         },
         border: {
           subtle: "var(--border-subtle)",
+          strong: "var(--border-strong)",
         },
       },
       fontFamily: {

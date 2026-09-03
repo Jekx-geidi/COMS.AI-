@@ -309,8 +309,8 @@ export function AdvisoryInboxPanel() {
                           </ul>
                         )}
                         <p className="mt-2 text-[11px] leading-relaxed text-text-secondary">
-                          Review every field below — the AI reads only what's written and never invents a
-                          location's boundary. Areas marked unresolved need a manual location pick.
+                          Review every field below — the AI reads only what&apos;s written and never invents a
+                          location&apos;s boundary. Areas marked unresolved need a manual location pick.
                         </p>
                       </div>
                     )}

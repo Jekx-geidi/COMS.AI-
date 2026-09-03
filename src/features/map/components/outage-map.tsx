@@ -227,7 +227,7 @@ export function OutageMap({ events }: { events: MapEventSummary[] }) {
       <div className={isExpanded ? "h-full w-full" : "h-[360px] w-full md:h-[480px]"}>
         <div
           ref={containerRef}
-          className="h-full w-full overflow-hidden rounded-panel border border-border-subtle"
+          className="h-full w-full overflow-hidden rounded-panel"
           role="img"
           aria-label="Interactive map of Cebu showing power interruption locations"
         />
@@ -236,7 +236,7 @@ export function OutageMap({ events }: { events: MapEventSummary[] }) {
         type="button"
         onClick={() => setIsExpanded((prev) => !prev)}
         aria-label={isExpanded ? "Exit fullscreen map" : "Expand map to fullscreen"}
-        className="absolute right-3 top-3 z-[1000] inline-flex h-9 w-9 items-center justify-center rounded-control border border-border-subtle bg-bg-1/90 text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-colors hover:border-brand-cyan/40 hover:text-brand-cyan"
+        className="absolute right-3 top-3 z-[1000] inline-flex h-9 w-9 items-center justify-center rounded-control bg-bg-1/90 text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-colors hover:text-brand-cyan"
       >
         {isExpanded ? <Minimize2 className="h-4 w-4" aria-hidden="true" /> : <Maximize2 className="h-4 w-4" aria-hidden="true" />}
       </button>

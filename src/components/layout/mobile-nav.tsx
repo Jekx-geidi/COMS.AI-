@@ -19,7 +19,7 @@ export function MobileNav() {
   return (
     <nav
       aria-label="Primary"
-      className="fixed inset-x-3 bottom-3 z-40 flex items-stretch justify-around rounded-2xl border border-border-strong bg-bg-1/90 px-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] shadow-[0_18px_55px_rgba(0,0,0,0.55)] backdrop-blur-xl md:hidden"
+      className="fixed inset-x-3 bottom-3 z-40 flex items-stretch justify-around rounded-2xl bg-bg-1/95 px-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] shadow-[0_18px_55px_rgba(0,0,0,0.45)] backdrop-blur-xl md:hidden"
     >
       {MOBILE_NAV.map((item) => {
         const Icon = ICONS[item.label] ?? Home;
@@ -37,7 +37,7 @@ export function MobileNav() {
             <span
               className={
                 isLocate
-                  ? "-mt-7 flex h-12 w-12 items-center justify-center rounded-full border-4 border-bg-0 bg-brand-cyan text-text-on-accent shadow-cyan"
+                  ? "-mt-7 flex h-12 w-12 items-center justify-center rounded-full bg-brand-cyan text-text-on-accent shadow-cyan"
                   : "flex h-7 w-9 items-center justify-center"
               }
             >

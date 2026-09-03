@@ -6,16 +6,24 @@ import { ProfileSelector } from "@/features/preparedness/components/profile-sele
 import { PreparednessChecklist } from "@/features/preparedness/components/preparedness-checklist";
 import { CountdownBanner } from "@/features/preparedness/components/countdown-banner";
 import { PROFILE_CHECKLISTS } from "@/features/preparedness/data";
-import { getDashboardSummary } from "@/features/dashboard/services/dashboard.service";
-import type { DashboardEventSummary } from "@/features/dashboard/types";
+import { getAffectedAreas } from "@/features/locate-me/services/locate-me.service";
 
 export default function PreparednessPage() {
   const { profile, setProfile, checked, toggleItem, loaded } = usePreparednessChecklist();
-  const [nextEvent, setNextEvent] = useState<DashboardEventSummary | null>(null);
+  const [nextEvent, setNextEvent] = useState<{ startAt: string; locationLabel: string } | null>(null);
 
   useEffect(() => {
-    getDashboardSummary().then((summary) => {
-      setNextEvent(summary.laterToday[0] ?? summary.tomorrow[0] ?? null);
+    getAffectedAreas().then((areas) => {
+      const now = Date.now();
+      const nextArea = areas
+        .filter((area) => area.event.startAt && new Date(area.event.startAt).getTime() > now)
+        .sort((a, b) => new Date(a.event.startAt!).getTime() - new Date(b.event.startAt!).getTime())[0];
+
+      setNextEvent(
+        nextArea?.event.startAt
+          ? { startAt: nextArea.event.startAt, locationLabel: nextArea.label }
+          : null
+      );
     });
   }, []);
 

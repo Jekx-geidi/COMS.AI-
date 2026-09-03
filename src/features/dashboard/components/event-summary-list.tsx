@@ -11,13 +11,15 @@ interface EventSummaryListProps {
 
 export function EventSummaryList({ title, items, emptyLabel }: EventSummaryListProps) {
   return (
-    <section className="min-w-0">
-      <div className="mb-3 flex items-center gap-3">
-        <h2 className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-text-secondary">{title}</h2>
-        <span className="h-px flex-1 bg-gradient-to-r from-border-subtle to-transparent" />
+    <section className="min-w-0 rounded-panel bg-bg-1/95 p-4 shadow-[0_14px_34px_rgba(0,0,0,0.14)]">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h2 className="text-sm font-semibold">{title}</h2>
+        <span className="rounded-full bg-bg-2/70 px-2 py-0.5 font-mono text-[11px] text-text-secondary">
+          {items.length}
+        </span>
       </div>
       {items.length === 0 ? (
-        <p className="rounded-panel border border-border-subtle bg-bg-1/60 px-4 py-3 text-sm text-text-secondary">
+        <p className="rounded-control bg-bg-2/45 px-3 py-3 text-sm text-text-secondary">
           {emptyLabel}
         </p>
       ) : (
@@ -25,7 +27,7 @@ export function EventSummaryList({ title, items, emptyLabel }: EventSummaryListP
           {items.map((item) => (
             <li
               key={item.id}
-              className="group flex items-center justify-between gap-3 rounded-panel border border-border-subtle bg-bg-1/80 px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.08)] transition-all hover:-translate-y-0.5 hover:border-brand-cyan/35 hover:bg-bg-1 md:px-5"
+              className="group flex items-center justify-between gap-3 rounded-control bg-bg-2/45 px-3 py-3 transition-all hover:-translate-y-0.5 hover:bg-bg-2/75"
             >
               <div className="min-w-0">
                 <p className="flex items-center gap-1.5 truncate text-sm font-semibold">

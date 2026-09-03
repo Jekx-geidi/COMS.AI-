@@ -51,7 +51,7 @@ export function LocateMeWidget() {
       </header>
 
       {status === "idle" && (
-        <div className="rounded-panel border border-border-subtle bg-bg-1 p-5">
+        <div className="rounded-panel bg-bg-1/95 p-5 shadow-[0_14px_34px_rgba(0,0,0,0.14)]">
           <button
             onClick={request}
             className="mx-auto flex flex-col items-center gap-1 rounded-panel"
@@ -78,11 +78,11 @@ export function LocateMeWidget() {
       {status === "denied" && <PermissionDeniedState />}
 
       {status === "error" && (
-        <div className="rounded-panel border border-status-critical/40 bg-bg-1 p-5">
+        <div className="rounded-panel bg-bg-1/95 p-5 shadow-[0_14px_34px_rgba(0,0,0,0.14)]">
           <p className="text-sm text-text-secondary">{errorMessage}</p>
           <button
             onClick={reset}
-            className="mt-3 rounded-control border border-border-subtle px-3 py-2 text-sm text-text-primary"
+            className="mt-3 rounded-control bg-bg-2/70 px-3 py-2 text-sm text-text-primary"
           >
             Try Again
           </button>
@@ -95,7 +95,7 @@ export function LocateMeWidget() {
           {result ? (
             <LocateMeResultCard result={result} />
           ) : (
-            <div className="flex h-20 w-full animate-pulse items-center justify-center rounded-panel border border-border-subtle bg-bg-1">
+            <div className="flex h-20 w-full animate-pulse items-center justify-center rounded-panel bg-bg-1/95">
               <p className="text-xs text-text-secondary">Checking verified outage areas…</p>
             </div>
           )}

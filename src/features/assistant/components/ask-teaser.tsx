@@ -5,10 +5,10 @@ export function AskTeaser() {
   return (
     <Link
       href="/ask-ai"
-      className="group relative flex items-center justify-between gap-3 overflow-hidden rounded-panel border border-border-subtle bg-gradient-to-r from-bg-1 to-brand-blue/25 px-4 py-4 transition-all hover:border-brand-cyan/45 md:px-5"
+      className="group relative flex items-center justify-between gap-3 overflow-hidden rounded-panel bg-bg-1/95 px-4 py-4 shadow-[0_14px_34px_rgba(0,0,0,0.14)] transition-all hover:-translate-y-0.5 hover:bg-bg-1 md:px-5"
     >
       <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control border border-brand-cyan/20 bg-brand-cyan/10 text-brand-cyan shadow-cyan">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-cyan/10 text-brand-cyan shadow-cyan">
           <Sparkles className="h-5 w-5" aria-hidden="true" />
         </span>
         <div>
@@ -18,7 +18,7 @@ export function AskTeaser() {
           </p>
         </div>
       </div>
-      <span className="text-xs text-brand-cyan">Ask →</span>
+      <span className="text-xs text-brand-cyan">Ask</span>
     </Link>
   );
 }
