@@ -6,4 +6,6 @@ export interface CalendarEvent {
   status: OutageStatus;
   startAt: string;
   endAt?: string;
+  coverageDescription?: string;
+  sourceName?: string;
 }

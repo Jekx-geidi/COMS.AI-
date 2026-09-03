@@ -6,37 +6,52 @@ import type { PreparednessProfile } from "../types";
 const PROFILE_KEY = "coms-ai-preparedness-profile";
 const CHECKLIST_KEY_PREFIX = "coms-ai-preparedness-checked:";
 
+function readChecked(profile: PreparednessProfile): Record<string, boolean> {
+  try {
+    const raw = window.localStorage.getItem(CHECKLIST_KEY_PREFIX + profile);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 export function usePreparednessChecklist() {
-  const [profile, setProfileState] = useState<PreparednessProfile>("HOUSEHOLD");
+  const [profile, setProfileState] = useState<PreparednessProfile | null>(null);
+  const [draftProfile, setDraftProfile] = useState<PreparednessProfile>("STUDENT");
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const savedProfile = window.localStorage.getItem(PROFILE_KEY) as PreparednessProfile | null;
-    const activeProfile = savedProfile ?? "HOUSEHOLD";
-    setProfileState(activeProfile);
-    loadChecklist(activeProfile);
-    setLoaded(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  function loadChecklist(p: PreparednessProfile) {
-    try {
-      const raw = window.localStorage.getItem(CHECKLIST_KEY_PREFIX + p);
-      setChecked(raw ? JSON.parse(raw) : {});
-    } catch {
-      setChecked({});
+    if (savedProfile) {
+      setProfileState(savedProfile);
+      setDraftProfile(savedProfile);
+      setChecked(readChecked(savedProfile));
     }
-  }
-
-  const setProfile = useCallback((p: PreparednessProfile) => {
-    setProfileState(p);
-    window.localStorage.setItem(PROFILE_KEY, p);
-    loadChecklist(p);
+    setLoaded(true);
   }, []);
+
+  const buildChecklist = useCallback((nextProfile: PreparednessProfile = draftProfile) => {
+    setProfileState(nextProfile);
+    setDraftProfile(nextProfile);
+    window.localStorage.setItem(PROFILE_KEY, nextProfile);
+    setChecked(readChecked(nextProfile));
+  }, [draftProfile]);
+
+  const changeProfile = useCallback(() => {
+    if (profile) setDraftProfile(profile);
+    setProfileState(null);
+  }, [profile]);
+
+  const resetChecklist = useCallback(() => {
+    if (!profile) return;
+    window.localStorage.removeItem(CHECKLIST_KEY_PREFIX + profile);
+    setChecked({});
+  }, [profile]);
 
   const toggleItem = useCallback(
     (itemId: string) => {
+      if (!profile) return;
       setChecked((prev) => {
         const next = { ...prev, [itemId]: !prev[itemId] };
         window.localStorage.setItem(CHECKLIST_KEY_PREFIX + profile, JSON.stringify(next));
@@ -46,5 +61,15 @@ export function usePreparednessChecklist() {
     [profile]
   );
 
-  return { profile, setProfile, checked, toggleItem, loaded };
+  return {
+    profile,
+    draftProfile,
+    setDraftProfile,
+    buildChecklist,
+    changeProfile,
+    resetChecklist,
+    checked,
+    toggleItem,
+    loaded,
+  };
 }
