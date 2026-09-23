@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/logos/coms-ai-logo.png" alt="COMS.AI logo" width="360">
+</p>
+
 # COMS.AI
 
 **Cebu Outage Monitoring & Intelligence System** — an AI-powered public web platform (mobile + desktop) that turns fragmented power-interruption information into verified, structured, geospatial, personalized outage intelligence for Cebu, Philippines.
